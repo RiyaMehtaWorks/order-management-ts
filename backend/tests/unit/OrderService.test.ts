@@ -32,7 +32,7 @@ describe("OrderService", () => {
       items: [{ menuItemId: "m1", quantity: 2 }],
       customer: { name: "Jane", address: "123 Main St", phone: "1234567890" },
     });
-    expect(order.status).toBe("WRONG");
+    expect(order.status).toBe("RECEIVED");
     expect(order.totalAmount).toBe(249 * 2);
     expect(order.items[0].name).toBe("Margherita Pizza");
   });
