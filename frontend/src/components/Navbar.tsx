@@ -5,24 +5,34 @@ interface Props {
   isTracking: boolean;
 }
 
-// Sticky top bar - brand logo (click to go back to menu) + a live cart
-// item-count badge, Zomato-style.
+// Sticky top bar - brand logo + live cart item-count indicator.
 export default function Navbar({ onLogoClick, isTracking }: Props) {
   const { totalItems } = useCart();
 
   return (
     <header className="sticky top-0 z-20 bg-white shadow-sm">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <button
           onClick={onLogoClick}
-          className="clickable flex items-center gap-2 text-2xl font-extrabold text-brand"
+          className="clickable flex items-center gap-2 text-xl font-extrabold text-brand sm:text-2xl"
         >
-          <span aria-hidden>🍔</span> FoodHub
+          <span aria-hidden>🍔</span>
+          <span>FoodHub</span>
         </button>
 
         {!isTracking && totalItems > 0 && (
-          <div className="clickable flex items-center gap-2 rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white shadow hover:bg-brand-dark">
-            🛒 {totalItems} item{totalItems > 1 ? "s" : ""} in cart
+          <div
+            className="flex items-center gap-2 rounded-full border border-brand/20 bg-brand/5 px-3 py-2 text-sm font-semibold text-brand sm:px-4"
+            aria-label={`${totalItems} item${totalItems > 1 ? "s" : ""} in cart`}
+          >
+            <span className="text-base" aria-hidden>
+              🛒
+            </span>
+
+            <span>
+              {totalItems} item{totalItems > 1 ? "s" : ""}
+              <span className="hidden sm:inline"> in cart</span>
+            </span>
           </div>
         )}
       </div>

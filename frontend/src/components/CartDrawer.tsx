@@ -9,7 +9,8 @@ interface Props {
 // Slide-over cart, fixed to the bottom-right (mirrors Zomato/Swiggy's
 // floating cart bar). Two internal views: line-item review, then checkout.
 export default function CartDrawer({ onOrderPlaced }: Props) {
-  const { lines, removeItem, setQuantity, totalItems, totalPrice, clearCart } = useCart();
+  const { lines, removeItem, setQuantity, totalItems, totalPrice, clearCart } =
+    useCart();
   const [open, setOpen] = useState(false);
   const [checkingOut, setCheckingOut] = useState(false);
 
@@ -21,11 +22,14 @@ export default function CartDrawer({ onOrderPlaced }: Props) {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="clickable fixed bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-4 rounded-full bg-brand px-6 py-3 font-semibold text-white shadow-lg hover:bg-brand-dark"
+          className="clickable fixed bottom-4 left-1/2 z-30 flex w-[calc(100%-2rem)] max-w-md -translate-x-1/2 items-center justify-between rounded-full bg-brand px-5 py-3 font-semibold text-white shadow-xl transition hover:bg-brand-dark sm:px-6"
           data-testid="view-cart-btn"
         >
-          <span>{totalItems} item{totalItems > 1 ? "s" : ""} | ₹{totalPrice}</span>
-          <span>View Cart</span>
+          <span className="whitespace-nowrap">
+            {totalItems} item{totalItems > 1 ? "s" : ""} · ₹{totalPrice}
+          </span>
+
+          <span className="whitespace-nowrap">View Cart →</span>
         </button>
       )}
 
@@ -33,9 +37,13 @@ export default function CartDrawer({ onOrderPlaced }: Props) {
         <div className="fixed inset-0 z-40 flex justify-end bg-black/40">
           <div className="flex h-full w-full max-w-md flex-col bg-white shadow-2xl sm:rounded-l-2xl">
             <div className="flex items-center justify-between border-b p-4">
-              <h2 className="text-lg font-bold">{checkingOut ? "Delivery Details" : "Your Cart"}</h2>
+              <h2 className="text-lg font-bold">
+                {checkingOut ? "Delivery Details" : "Your Cart"}
+              </h2>
               <button
-                onClick={() => (checkingOut ? setCheckingOut(false) : setOpen(false))}
+                onClick={() =>
+                  checkingOut ? setCheckingOut(false) : setOpen(false)
+                }
                 className="clickable rounded-full p-2 text-xl hover:bg-neutral-100"
                 aria-label="Close"
               >
@@ -47,22 +55,36 @@ export default function CartDrawer({ onOrderPlaced }: Props) {
               <>
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                   {lines.map((line) => (
-                    <div key={line.menuItem.id} className="flex items-center gap-3" data-testid="cart-line">
-                      <img src={line.menuItem.image} alt="" className="h-14 w-14 rounded-lg object-cover" />
+                    <div
+                      key={line.menuItem.id}
+                      className="flex items-center gap-3"
+                      data-testid="cart-line"
+                    >
+                      <img
+                        src={line.menuItem.image}
+                        alt=""
+                        className="h-14 w-14 rounded-lg object-cover"
+                      />
                       <div className="flex-1">
                         <p className="font-medium">{line.menuItem.name}</p>
-                        <p className="text-sm text-neutral-500">₹{line.menuItem.price} x {line.quantity}</p>
+                        <p className="text-sm text-neutral-500">
+                          ₹{line.menuItem.price} x {line.quantity}
+                        </p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => setQuantity(line.menuItem.id, line.quantity - 1)}
+                          onClick={() =>
+                            setQuantity(line.menuItem.id, line.quantity - 1)
+                          }
                           className="clickable rounded border px-2 py-1 hover:bg-neutral-100"
                         >
                           -
                         </button>
                         <span>{line.quantity}</span>
                         <button
-                          onClick={() => setQuantity(line.menuItem.id, line.quantity + 1)}
+                          onClick={() =>
+                            setQuantity(line.menuItem.id, line.quantity + 1)
+                          }
                           className="clickable rounded border px-2 py-1 hover:bg-neutral-100"
                         >
                           +

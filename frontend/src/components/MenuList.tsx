@@ -6,16 +6,24 @@ import MenuItemCard from "./MenuItemCard";
 // TanStack Query handles loading/error/caching so this component only
 // worries about rendering.
 export default function MenuList() {
-  const { data: menu, isLoading, isError, error } = useQuery({
+  const {
+    data: menu,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["menu"],
-    queryFn: fetchMenu
+    queryFn: fetchMenu,
   });
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 ">
         {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="h-64 animate-pulse rounded-2xl bg-neutral-200" />
+          <div
+            key={i}
+            className="h-64 animate-pulse rounded-2xl bg-neutral-200"
+          />
         ))}
       </div>
     );
@@ -30,21 +38,32 @@ export default function MenuList() {
   }
 
   if (!menu || menu.length === 0) {
-    return <p className="text-center text-neutral-500">No menu items available right now.</p>;
+    return (
+      <p className="text-center text-neutral-500">
+        No menu items available right now.
+      </p>
+    );
   }
 
   const categories = Array.from(new Set(menu.map((m) => m.category)));
 
   return (
-    <div className="space-y-8">
+    <div className="mx-auto w-full max-w-6xl space-y-8">
       {categories.map((category) => (
         <section key={category}>
-          <h2 className="mb-3 text-xl font-bold text-neutral-800">{category}</h2>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+          <h2 className="mb-3 text-xl font-bold text-neutral-800 text-center">
+            {category}
+          </h2>
+          <div className="flex flex-wrap justify-center gap-4">
             {menu
               .filter((m) => m.category === category)
               .map((item) => (
-                <MenuItemCard key={item.id} item={item} />
+                <div
+                  key={item.id}
+                  className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[220px]"
+                >
+                  <MenuItemCard item={item} />
+                </div>
               ))}
           </div>
         </section>

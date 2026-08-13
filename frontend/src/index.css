@@ -14,3 +14,53 @@ body {
 .clickable:hover {
   @apply -translate-y-0.5;
 }
+@keyframes delivery {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+  }
+
+  60% {
+    transform: translateY(-3px) scale(1.03);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes delivery-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes confetti {
+  0% {
+    opacity: 1;
+    transform: translateY(-20px) rotate(0deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(150px) rotate(360deg);
+  }
+}
+
+.animate-delivery {
+  animation: delivery 0.6s ease-out both;
+}
+
+.animate-delivery-pulse {
+  animation: delivery-pulse 1.5s ease-in-out infinite;
+}
+
+.animate-confetti {
+  animation: confetti 2s ease-out forwards;
+}

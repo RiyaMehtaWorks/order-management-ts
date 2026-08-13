@@ -35,13 +35,20 @@ export default function MenuItemCard({ item }: Props) {
       <div className="p-4">
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-semibold text-neutral-900">{item.name}</h3>
-          <span className="whitespace-nowrap font-bold text-neutral-800">₹{item.price}</span>
+          <span className="whitespace-nowrap font-bold text-neutral-800">
+            ₹{item.price}
+          </span>
         </div>
-        <p className="mt-1 line-clamp-2 text-sm text-neutral-500">{item.description}</p>
+        <p className="mt-1 line-clamp-2 text-sm text-neutral-500">
+          {item.description}
+        </p>
 
         <div className="mt-3">
           {!item.available ? (
-            <button disabled className="w-full cursor-not-allowed rounded-lg bg-neutral-200 py-2 text-sm font-semibold text-neutral-400">
+            <button
+              disabled
+              className="w-full cursor-not-allowed rounded-lg bg-neutral-200 py-2 text-sm font-semibold text-neutral-400"
+            >
               Unavailable
             </button>
           ) : !line ? (
