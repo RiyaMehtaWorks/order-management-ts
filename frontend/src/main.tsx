@@ -10,8 +10,8 @@ import "./index.css";
 // fetches, handles retries/loading/error state so components don't have to.
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { retry: 1, refetchOnWindowFocus: false }
-  }
+    queries: { retry: 1, refetchOnWindowFocus: false },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -22,5 +22,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Toaster position="top-center" />
       </CartProvider>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

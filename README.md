@@ -1,4 +1,4 @@
-# FoodHub - Order Management 
+# FoodHub - Order Management
 
 A food-delivery order management feature: browse a menu, add items to a
 cart, check out, and track your order's status live (Socket.IO), built with

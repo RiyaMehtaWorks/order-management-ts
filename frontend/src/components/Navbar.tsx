@@ -2,11 +2,16 @@ import { useCart } from "../hooks/useCart";
 
 interface Props {
   onLogoClick: () => void;
+  onOrderHistoryClick: () => void;
   isTracking: boolean;
 }
 
 // Sticky top bar - brand logo + live cart item-count indicator.
-export default function Navbar({ onLogoClick, isTracking }: Props) {
+export default function Navbar({
+  onLogoClick,
+  onOrderHistoryClick,
+  isTracking,
+}: Props) {
   const { totalItems } = useCart();
 
   return (
@@ -20,19 +25,30 @@ export default function Navbar({ onLogoClick, isTracking }: Props) {
           <span>FoodHub</span>
         </button>
 
-        {!isTracking && totalItems > 0 && (
-          <div
-            className="flex items-center gap-2 rounded-full border border-brand/20 bg-brand/5 px-3 py-2 text-sm font-semibold text-brand sm:px-4"
-            aria-label={`${totalItems} item${totalItems > 1 ? "s" : ""} in cart`}
-          >
-            <span className="text-base" aria-hidden>
-              🛒
-            </span>
+        {!isTracking && (
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onOrderHistoryClick}
+              className="clickable rounded-lg px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100 hover:text-brand"
+            >
+              Order History
+            </button>
 
-            <span>
-              {totalItems} item{totalItems > 1 ? "s" : ""}
-              <span className="hidden sm:inline"> in cart</span>
-            </span>
+            {totalItems > 0 && (
+              <div
+                className="flex items-center gap-2 rounded-full border border-brand/20 bg-brand/5 px-3 py-2 text-sm font-semibold text-brand sm:px-4"
+                aria-label={`${totalItems} item${totalItems > 1 ? "s" : ""} in cart`}
+              >
+                <span className="text-base" aria-hidden>
+                  🛒
+                </span>
+
+                <span>
+                  {totalItems} item{totalItems > 1 ? "s" : ""}
+                  <span className="hidden sm:inline"> in cart</span>
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>
