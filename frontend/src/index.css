@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-neutral-50 text-neutral-900;
+}
+
+/* Anything meant to be clicked always shows a pointer cursor + a subtle
+   hover affordance - matches the Zomato-style "everything feels tappable" UX. */
+.clickable {
+  @apply cursor-pointer transition-transform duration-150 ease-out;
+}
+.clickable:hover {
+  @apply -translate-y-0.5;
+}
