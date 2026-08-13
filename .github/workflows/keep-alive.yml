@@ -1,0 +1,19 @@
+name: Keep Render Backend Awake
+
+# Render's free tier spins the service down after ~15 minutes of no
+# traffic, causing a slow "cold start" on the next request. This pings the
+# health endpoint every 10 minutes so it never goes idle long enough to sleep.
+# Note: GitHub's scheduler is best-effort (can slip a few minutes), and
+# scheduled workflows are auto-disabled after 60 days of repo inactivity —
+# see the README note below for a more reliable external alternative.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}   # lets you trigger it manually from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping /api/health
+        run: curl -fsS "${{ secrets.RENDER_APP_URL }}/api/health"
